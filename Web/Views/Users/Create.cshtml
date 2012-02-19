@@ -1,0 +1,19 @@
+﻿@model Web.Controllers.CreateUserMessage
+
+@{
+    ViewBag.Title = "Create user";
+}
+@Html.ActionLink("View all users", "Index")
+<h2>Create user</h2>
+@Html.ValidationSummary()
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(m => m.Username)
+    @Html.EditorFor(m => m.Username)
+
+    @Html.LabelFor(m => m.Password)
+    @Html.PasswordFor(m => m.Password)
+
+    <input type="submit" value="Create user"/>
+}
