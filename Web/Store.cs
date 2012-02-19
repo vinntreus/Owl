@@ -13,7 +13,7 @@ namespace Web
             {
                 if (s == null)
                 {
-                    s = new DocumentStore { ConnectionStringName = "RAVENHQ_CONNECTION_STRING" };
+                    s = new DocumentStore { ConnectionStringName = "RavenDB" };
                     s.Initialize();
                 }
                 return s;
