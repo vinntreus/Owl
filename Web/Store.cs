@@ -22,7 +22,6 @@ namespace Web
                         ApiKey = parser.ConnectionStringOptions.ApiKey,
                         Url = parser.ConnectionStringOptions.Url,
                     };
-                    //s = new DocumentStore { ConnectionStringName = "RavenDB" };
                     s.Initialize();
                 }
                 return s;

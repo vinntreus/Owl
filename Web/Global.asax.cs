@@ -19,7 +19,7 @@ namespace Web
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Users", action = "Index", id = UrlParameter.Optional }
             );
         }
 
@@ -31,10 +31,6 @@ namespace Web
             RegisterRoutes(RouteTable.Routes);
 
             DependencyResolver.SetResolver(new MunqDependencyResolver());
-
-            //            // TODO: Register Dependencies in Global.asax Application_Start
-            //            // var ioc = MunqDependencyResolver.Container;
-            //            // Munq.Configuration.ConfigurationLoader.FindAndRegisterDependencies(ioc); // Optional
             var ioc = MunqDependencyResolver.Container;
             ioc.Register(r => Store.DocumentStore);
             ioc.Register<IHandleUsers, Users>();
