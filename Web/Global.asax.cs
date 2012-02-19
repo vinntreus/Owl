@@ -1,5 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using Core;
+using Munq.MVC3;
 
 namespace Web
 {
@@ -27,6 +29,15 @@ namespace Web
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            DependencyResolver.SetResolver(new MunqDependencyResolver());
+
+            //            // TODO: Register Dependencies in Global.asax Application_Start
+            //            // var ioc = MunqDependencyResolver.Container;
+            //            // Munq.Configuration.ConfigurationLoader.FindAndRegisterDependencies(ioc); // Optional
+            var ioc = MunqDependencyResolver.Container;
+            ioc.Register(r => Store.DocumentStore);
+            ioc.Register<IHandleUsers, Users>();
         }
     }
 }
