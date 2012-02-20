@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Core;
+using Web.Models;
 
 namespace Web.Controllers
 {
@@ -13,7 +13,7 @@ namespace Web.Controllers
             this.users = users;
         }
 
-        public ActionResult Index()
+        public ViewResult Index()
         {
             return View(users.All());
         }
@@ -21,7 +21,7 @@ namespace Web.Controllers
         //
         // Post: /User/
         [HttpGet]
-        public ActionResult Create()
+        public ViewResult Create()
         {
             return View();
         }
@@ -39,21 +39,5 @@ namespace Web.Controllers
             return RedirectToAction("Index");
         }
 
-    }
-
-    public class UserViewModel : IUser
-    {
-        public string Username { get; set; }
-    }
-
-    public class CreateUserMessage : ICreateUser
-    {
-        [Required(ErrorMessage = "Must enter a username")]
-        [Display(Name = "Username")]
-        public string Username { get; set; }
-
-        [Required(ErrorMessage = "Must enter a password")]
-        public string Password { get; set; }
-        
     }
 }
