@@ -54,7 +54,7 @@ namespace UnitTests.Web.Controllers
         [Test]
         public void CreatePost_AllowsHttpPost()
         {
-            var hasAttribute = controller.HasAttribute("Create", typeof(HttpPostAttribute), typeof(AddUserMessageMessage));
+            var hasAttribute = controller.HasAttribute("Create", typeof(HttpPostAttribute), typeof(AddUserMessage));
 
             Assert.That(hasAttribute, Is.True);
         }
@@ -62,7 +62,7 @@ namespace UnitTests.Web.Controllers
         [Test]
         public void CreatePost_RedirectsToIndex()
         {
-            var result = (RedirectToRouteResult)controller.Create(new AddUserMessageMessage {Username = "a", Password = "b"});
+            var result = (RedirectToRouteResult)controller.Create(new AddUserMessage {Username = "a", Password = "b"});
 
             Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
             Assert.That(result.RouteValues["controller"], Is.Null);
@@ -72,7 +72,7 @@ namespace UnitTests.Web.Controllers
         public void CreatePost_ModelStateIsInvalid_ReturnsViewWithPassedMessage()
         {
             controller.ModelState.AddModelError("fel", "felet");
-            var createUserMessage = new AddUserMessageMessage();
+            var createUserMessage = new AddUserMessage();
             var result = (ViewResult)controller.Create(createUserMessage);
 
             Assert.That(result.ViewName, Is.EqualTo(""));
@@ -82,7 +82,7 @@ namespace UnitTests.Web.Controllers
         [Test]
         public void CreatePost_ModelStateIsValid_AddMessage()
         {
-            var createUserMessage = new AddUserMessageMessage();
+            var createUserMessage = new AddUserMessage();
 
             controller.Create(createUserMessage);
 

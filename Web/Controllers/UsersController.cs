@@ -33,14 +33,14 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(AddUserMessageMessage messageMessage)
+        public ActionResult Create(AddUserMessage message)
         {
             if(!ModelState.IsValid)
             {
-                return View(messageMessage);
+                return View(message);
             }
             
-            commands.ExecuteCommand(new AddUserCommand(messageMessage));
+            commands.ExecuteCommand(new AddUserCommand(message));
 
             return RedirectToAction("Index");
         }

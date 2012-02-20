@@ -4,7 +4,7 @@ using Core.Users;
 
 namespace Web.Models
 {
-    public class AddUserMessageMessage : IAddUserMessage
+    public class AddUserMessage : IAddUserMessage
     {
         [Required(ErrorMessage = "Must enter a username")]
         [Display(Name = "Username")]
