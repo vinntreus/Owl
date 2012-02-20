@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Core;
+using Core.Users;
 using Moq;
 using NUnit.Framework;
 using Web.Controllers;
@@ -11,21 +12,23 @@ namespace UnitTests.Web.Controllers
     [TestFixture]
     public class UsersControllerTests
     {
-        private Mock<IHandleUsers> usersMock;
+        private Mock<IStore> storeMock; 
         private UsersController controller;
+        private Mock<ICommandExecuter> commandMock;
 
         [SetUp]
         public void Setup()
         {
-            usersMock = new Mock<IHandleUsers>();
-            controller = new UsersController(usersMock.Object);
+            storeMock = new Mock<IStore>();
+            commandMock = new Mock<ICommandExecuter>();
+            controller = new UsersController(commandMock.Object, storeMock.Object);
         }
 
         [Test]
         public void Index_ReturnsAllUsers()
         {
             var expectedList = new List<IUser>();
-            usersMock.Setup(u => u.All()).Returns(expectedList);
+            storeMock.Setup(u => u.AllUsers()).Returns(expectedList);
 
             var actionResult = controller.Index();
 
@@ -51,7 +54,7 @@ namespace UnitTests.Web.Controllers
         [Test]
         public void CreatePost_AllowsHttpPost()
         {
-            var hasAttribute = controller.HasAttribute("Create", typeof(HttpPostAttribute), typeof(CreateUserMessage));
+            var hasAttribute = controller.HasAttribute("Create", typeof(HttpPostAttribute), typeof(AddUserMessageMessage));
 
             Assert.That(hasAttribute, Is.True);
         }
@@ -59,7 +62,7 @@ namespace UnitTests.Web.Controllers
         [Test]
         public void CreatePost_RedirectsToIndex()
         {
-            var result = (RedirectToRouteResult)controller.Create(new CreateUserMessage {Username = "a", Password = "b"});
+            var result = (RedirectToRouteResult)controller.Create(new AddUserMessageMessage {Username = "a", Password = "b"});
 
             Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
             Assert.That(result.RouteValues["controller"], Is.Null);
@@ -69,7 +72,7 @@ namespace UnitTests.Web.Controllers
         public void CreatePost_ModelStateIsInvalid_ReturnsViewWithPassedMessage()
         {
             controller.ModelState.AddModelError("fel", "felet");
-            var createUserMessage = new CreateUserMessage();
+            var createUserMessage = new AddUserMessageMessage();
             var result = (ViewResult)controller.Create(createUserMessage);
 
             Assert.That(result.ViewName, Is.EqualTo(""));
@@ -79,11 +82,11 @@ namespace UnitTests.Web.Controllers
         [Test]
         public void CreatePost_ModelStateIsValid_AddMessage()
         {
-            var createUserMessage = new CreateUserMessage();
+            var createUserMessage = new AddUserMessageMessage();
 
             controller.Create(createUserMessage);
 
-            usersMock.Verify(u => u.Add(createUserMessage));
+            commandMock.Verify(u => u.ExecuteCommand(It.IsAny<AddUserCommand>()));
         }
     }
 }

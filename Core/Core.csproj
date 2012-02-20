@@ -40,7 +40,14 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Users.cs" />
+    <Compile Include="Command.cs" />
+    <Compile Include="Users\CreateUserException.cs" />
+    <Compile Include="ICommandExecuter.cs" />
+    <Compile Include="Users\IAddUserMessage.cs" />
+    <Compile Include="IStore.cs" />
+    <Compile Include="Users\IUser.cs" />
+    <Compile Include="Users\User.cs" />
+    <Compile Include="Users\AddUserCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

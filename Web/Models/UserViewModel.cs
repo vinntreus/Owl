@@ -1,4 +1,5 @@
 using Core;
+using Core.Users;
 
 namespace Web.Models
 {

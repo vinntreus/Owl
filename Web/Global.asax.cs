@@ -33,7 +33,8 @@ namespace Web
             DependencyResolver.SetResolver(new MunqDependencyResolver());
             var ioc = MunqDependencyResolver.Container;
             ioc.Register(r => Store.DocumentStore);
-            ioc.Register<IHandleUsers, Users>();
+            ioc.Register<IStore, Core.Store>();
+            ioc.Register<ICommandExecuter, CommandExecuter>();
         }
     }
 }

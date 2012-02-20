@@ -1,21 +1,27 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 using Core;
+using Core.Users;
+using Raven.Client;
 using Web.Models;
 
 namespace Web.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly IHandleUsers users;
+        private readonly ICommandExecuter commands;
+        private readonly IStore store;
 
-        public UsersController(IHandleUsers users)
+        public UsersController(ICommandExecuter commands, IStore store)
         {
-            this.users = users;
+            this.commands = commands;
+            this.store = store;
         }
 
         public ViewResult Index()
         {
-            return View(users.All());
+            return View(store.AllUsers());
         }
 
         //
@@ -27,14 +33,14 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(CreateUserMessage message)
+        public ActionResult Create(AddUserMessageMessage messageMessage)
         {
             if(!ModelState.IsValid)
             {
-                return View(message);
+                return View(messageMessage);
             }
             
-            users.Add(message);
+            commands.ExecuteCommand(new AddUserCommand(messageMessage));
 
             return RedirectToAction("Index");
         }
