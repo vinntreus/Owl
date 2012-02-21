@@ -1,3 +1,5 @@
+using DevOne.Security.Cryptography.BCrypt;
+
 namespace Core.Users
 {
     public class User : IUser
@@ -11,7 +13,7 @@ namespace Core.Users
             return new User
             {
                 Username = message.Username,
-                Password = message.Password
+                Password = BCryptHelper.HashPassword(message.Password, BCryptHelper.GenerateSalt(12))
             };
         }
     }
