@@ -45,7 +45,7 @@
   <ItemGroup>
     <Compile Include="Command.cs" />
     <Compile Include="Users\CreateUserException.cs" />
-    <Compile Include="ICommandExecuter.cs" />
+    <Compile Include="ICommandExecutor.cs" />
     <Compile Include="Users\IAddUserMessage.cs" />
     <Compile Include="IStore.cs" />
     <Compile Include="Users\IUser.cs" />

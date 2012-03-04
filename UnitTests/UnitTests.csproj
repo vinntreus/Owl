@@ -52,6 +52,7 @@
     <Compile Include="Core\CommandExecutorTests.cs" />
     <Compile Include="Core\UserTests.cs" />
     <Compile Include="Web\ControllerExtensions.cs" />
+    <Compile Include="Web\Controllers\SessionControllerTests.cs" />
     <Compile Include="Web\Controllers\UsersControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

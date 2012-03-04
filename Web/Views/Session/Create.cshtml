@@ -1,0 +1,19 @@
+﻿@model Web.Models.SessionViewModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Enter your credentials to login</h2>
+@Html.ValidationSummary()
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(m => m.Username)
+    @Html.EditorFor(m => m.Username)
+
+    @Html.LabelFor(m => m.Password)
+    @Html.PasswordFor(m => m.Password)
+
+    <input type="submit" value="Login"/>
+}
