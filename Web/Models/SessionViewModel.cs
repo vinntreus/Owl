@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Core.Security;
 
 namespace Web.Models
 {
-	public class SessionViewModel
+	public class SessionViewModel : ICreateSessionMessage
 	{
 		[Required(ErrorMessage = "Must enter a username")]
 		[Display(Name = "Username")]

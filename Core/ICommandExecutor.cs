@@ -5,6 +5,7 @@ namespace Core
     public interface ICommandExecutor
     {
         void Execute(Command command);
+		T Execute<T>(Command<T> command);
     }
 
     public class CommandExecutor : ICommandExecutor
@@ -21,5 +22,12 @@ namespace Core
             command.Store = store;
             command.Execute();
         }
-    }
+
+
+		public T Execute<T>(Command<T> command)
+		{
+			command.Store = store;
+			return command.Execute();
+		}
+	}
 }
