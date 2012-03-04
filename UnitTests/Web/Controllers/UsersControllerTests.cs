@@ -86,7 +86,7 @@ namespace UnitTests.Web.Controllers
 
             controller.Create(createUserMessage);
 
-            commandMock.Verify(u => u.ExecuteCommand(It.IsAny<AddUserCommand>()));
+            commandMock.Verify(u => u.Execute(It.IsAny<AddUserCommand>()));
         }
     }
 }

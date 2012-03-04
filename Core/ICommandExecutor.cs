@@ -4,7 +4,7 @@ namespace Core
 {
     public interface ICommandExecutor
     {
-        void ExecuteCommand(Command command);
+        void Execute(Command command);
     }
 
     public class CommandExecutor : ICommandExecutor
@@ -16,7 +16,7 @@ namespace Core
             this.store = store;
         }
 
-        public void ExecuteCommand(Command command)
+        public void Execute(Command command)
         {
             command.Store = store;
             command.Execute();

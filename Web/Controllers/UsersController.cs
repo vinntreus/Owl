@@ -40,7 +40,7 @@ namespace Web.Controllers
                 return View(message);
             }
             
-            commands.ExecuteCommand(new AddUserCommand(message));
+            commands.Execute(new AddUserCommand(message));
 
             return RedirectToAction("Index");
         }
