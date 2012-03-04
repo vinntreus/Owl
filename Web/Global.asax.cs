@@ -34,7 +34,7 @@ namespace Web
             var ioc = MunqDependencyResolver.Container;
             ioc.Register(r => Store.DocumentStore);
             ioc.Register<IStore, Core.Store>();
-            ioc.Register<ICommandExecuter, CommandExecuter>();
+            ioc.Register<ICommandExecutor, CommandExecutor>();
         }
     }
 }

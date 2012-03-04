@@ -2,16 +2,16 @@ using Raven.Client;
 
 namespace Core
 {
-    public interface ICommandExecuter
+    public interface ICommandExecutor
     {
         void ExecuteCommand(Command command);
     }
 
-    public class CommandExecuter : ICommandExecuter
+    public class CommandExecutor : ICommandExecutor
     {
         private readonly IDocumentStore store;
 
-        public CommandExecuter(IDocumentStore store)
+        public CommandExecutor(IDocumentStore store)
         {
             this.store = store;
         }

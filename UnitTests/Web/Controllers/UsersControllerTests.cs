@@ -14,13 +14,13 @@ namespace UnitTests.Web.Controllers
     {
         private Mock<IStore> storeMock; 
         private UsersController controller;
-        private Mock<ICommandExecuter> commandMock;
+        private Mock<ICommandExecutor> commandMock;
 
         [SetUp]
         public void Setup()
         {
             storeMock = new Mock<IStore>();
-            commandMock = new Mock<ICommandExecuter>();
+            commandMock = new Mock<ICommandExecutor>();
             controller = new UsersController(commandMock.Object, storeMock.Object);
         }
 

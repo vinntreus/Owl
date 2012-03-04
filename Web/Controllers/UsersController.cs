@@ -10,10 +10,10 @@ namespace Web.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly ICommandExecuter commands;
+        private readonly ICommandExecutor commands;
         private readonly IStore store;
 
-        public UsersController(ICommandExecuter commands, IStore store)
+        public UsersController(ICommandExecutor commands, IStore store)
         {
             this.commands = commands;
             this.store = store;
