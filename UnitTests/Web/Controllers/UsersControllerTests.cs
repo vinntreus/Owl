@@ -34,7 +34,7 @@ namespace UnitTests.Web.Controllers
         public void Index_Always_ReturnsAllUsers()
         {
             var expectedList = new List<IUser>();
-            storeMock.Setup(u => u.AllUsers()).Returns(expectedList);
+            storeMock.Setup(u => u.Execute(It.IsAny<UsersQuery>())).Returns(expectedList);
 
             var actionResult = controller.Index();
 

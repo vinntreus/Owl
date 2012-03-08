@@ -25,7 +25,7 @@ namespace Web.Controllers
 
         public ViewResult Index()
         {
-            return View(store.AllUsers());
+            return View(store.Execute(new UsersQuery()));
         }
 
 		[AllowAnonymous]

@@ -7,7 +7,7 @@ namespace Core
 {
     public interface IStore
     {
-        IEnumerable<IUser> AllUsers();
+        T Execute<T>(IQuery<T> query); 
     }
 
     public class Store : IStore
@@ -17,11 +17,11 @@ namespace Core
         public Store(IDocumentSession session)
         {
             this.session = session;
-        }
+        }     
 
-        public IEnumerable<IUser> AllUsers()
+        public T Execute<T>(IQuery<T> query)
         {
-            return session.Query<User>().ToList();           
+            return query.Execute(session);
         }
     }
 }
