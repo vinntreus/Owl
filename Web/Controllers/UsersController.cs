@@ -56,7 +56,7 @@ namespace Web.Controllers
                 authenticator.SetAuthCookie(result.ReturnValue.Username, true);
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
     }

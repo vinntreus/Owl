@@ -31,7 +31,7 @@ namespace UnitTests.Web.Controllers
         }
 
         [Test]
-        public void Index_ReturnsAllUsers()
+        public void Index_Always_ReturnsAllUsers()
         {
             var expectedList = new List<IUser>();
             storeMock.Setup(u => u.AllUsers()).Returns(expectedList);
@@ -42,7 +42,7 @@ namespace UnitTests.Web.Controllers
         }
 
         [Test]
-        public void CreateGet_ReturnsCreateView()
+        public void Create_Get_ReturnsCreateView()
         {
             var result = controller.Create();
 
@@ -50,7 +50,7 @@ namespace UnitTests.Web.Controllers
         }
 
         [Test]
-        public void CreateGet_AllowsHttpGet()
+        public void Create_Get_AllowsHttpGet()
         {
             var hasAttribute = controller.HasAttribute("Create", typeof(HttpGetAttribute));
 
@@ -58,7 +58,7 @@ namespace UnitTests.Web.Controllers
         }
 
         [Test]
-        public void CreatePost_AllowsHttpPost()
+        public void Create_Post_AllowsHttpPost()
         {
             var hasAttribute = controller.HasAttribute("Create", typeof(HttpPostAttribute), typeof(AddUserMessage));
 
@@ -66,16 +66,16 @@ namespace UnitTests.Web.Controllers
         }
 
         [Test]
-        public void CreatePost_RedirectsToIndex()
+        public void Create_Post_RedirectsToIndexOfHomeController()
         {
             var result = (RedirectToRouteResult)controller.Create(new AddUserMessage {Username = "a", Password = "b"});
 
             Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
-            Assert.That(result.RouteValues["controller"], Is.Null);
+            Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
         }
 
         [Test]
-        public void CreatePost_ModelStateIsInvalid_ReturnsViewWithPassedMessage()
+        public void Create_PostWithInvalidModelState_ReturnsViewWithPassedMessage()
         {
             controller.ModelState.AddModelError("fel", "felet");
             var createUserMessage = new AddUserMessage();
@@ -86,7 +86,7 @@ namespace UnitTests.Web.Controllers
         }
 
         [Test]
-        public void CreatePost_ModelStateIsValid_AddMessage()
+        public void Create_PostAndModelStateIsValid_AddMessage()
         {
             var createUserMessage = new AddUserMessage();
 
