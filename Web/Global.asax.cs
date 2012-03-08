@@ -2,6 +2,7 @@
 using System.Web.Routing;
 using Core;
 using Munq.MVC3;
+using Web.Security;
 
 namespace Web
 {
@@ -35,6 +36,7 @@ namespace Web
             ioc.Register(r => Store.DocumentStore);
             ioc.Register<IStore, Core.Store>();
             ioc.Register<ICommandExecutor, CommandExecutor>();
+			ioc.Register<IAuthenticator, FormsAuthenticator>();
         }
     }
 }

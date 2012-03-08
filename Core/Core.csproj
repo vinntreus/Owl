@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command.cs" />
-    <Compile Include="Security\CreateSessionCommand.cs" />
+    <Compile Include="Sessions\CreateSessionCommand.cs" />
     <Compile Include="Users\CreateUserException.cs" />
     <Compile Include="ICommandExecutor.cs" />
     <Compile Include="Users\IAddUserMessage.cs" />

@@ -5,18 +5,21 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Core;
-using Core.Security;
+using Core.Sessions;
 using Web.Models;
+using Web.Security;
 
 namespace Web.Controllers
 {
     public class SessionController : Controller
     {
 		private ICommandExecutor commandExecutor;
+		private IAuthenticator authenticate;
 
-		public SessionController(ICommandExecutor commandExecutor)
+		public SessionController(ICommandExecutor commandExecutor, IAuthenticator authenticator)
 		{
 			this.commandExecutor = commandExecutor;
+			this.authenticate = authenticator;
 		}
 
 		[HttpGet]
@@ -36,7 +39,7 @@ namespace Web.Controllers
 			var isAuthenticated = commandExecutor.Execute(new CreateSessionCommand(model));
 			if (isAuthenticated)
 			{
-				FormsAuthentication.SetAuthCookie(model.Username, true);
+				authenticate.SetAuthCookie(model.Username, model.PersistCookie);
 				return RedirectToAction("Index", "Home");
 			}
 

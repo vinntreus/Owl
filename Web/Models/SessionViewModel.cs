@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using Core.Security;
+using Core.Sessions;
 
 namespace Web.Models
 {
@@ -15,5 +15,7 @@ namespace Web.Models
 
 		[Required(ErrorMessage = "Must enter a password")]
 		public string Password { get; set; }
+
+		public bool PersistCookie { get; set; }
 	}
 }

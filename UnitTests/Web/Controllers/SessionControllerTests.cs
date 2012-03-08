@@ -8,6 +8,7 @@ using Moq;
 using NUnit.Framework;
 using Web.Controllers;
 using Web.Models;
+using Web.Security;
 
 namespace UnitTests.Web.Controllers
 {
@@ -16,16 +17,18 @@ namespace UnitTests.Web.Controllers
 	{
 		private SessionController controller;
 		private Mock<ICommandExecutor> commandMock;
+		private Mock<IAuthenticator> authenticatorMock;
 
 		[SetUp]
 		public void Setup()
 		{
 			commandMock = new Mock<ICommandExecutor>();
-			controller = new SessionController(commandMock.Object);
+			authenticatorMock = new Mock<IAuthenticator>();
+			controller = new SessionController(commandMock.Object, authenticatorMock.Object);
 		}
 
 		[Test]
-		public void CreateGet_ShouldReturnView()
+		public void Create_Get_ShouldReturnView()
 		{
 			var result = (ViewResult)controller.Create();
 
@@ -33,7 +36,7 @@ namespace UnitTests.Web.Controllers
 		}
 
 		[Test]
-		public void CreateGet_AllowsHttpGet()
+		public void Create_Get_AllowsHttpGet()
 		{
 			var result = controller.HasAttribute("Create", typeof(HttpGetAttribute));
 
@@ -41,7 +44,7 @@ namespace UnitTests.Web.Controllers
 		}
 
 		[Test]
-		public void CreatePost_AllowsHttpPost()
+		public void Create_Post_AllowsHttpPost()
 		{
 			var hasAttribute = controller.HasAttribute("Create", typeof(HttpPostAttribute), typeof(SessionViewModel));
 
@@ -49,7 +52,7 @@ namespace UnitTests.Web.Controllers
 		}
 
 		[Test]
-		public void CreatePost_ModelStateIsInvalid_ReturnsViewWithPassedMessage()
+		public void Create_PostsModelStateIsInvalid_ReturnsViewWithPassedMessage()
 		{
 			controller.ModelState.AddModelError("fel", "felet");
 			var viewModel = new SessionViewModel();
@@ -58,7 +61,39 @@ namespace UnitTests.Web.Controllers
 			Assert.That(result.ViewName, Is.EqualTo(""));
 			Assert.That(result.Model, Is.SameAs(viewModel));
 		}
-		
+
+		[Test]
+		public void Create_PostsInvalidCredential_ReturnToSameViewWithModelError()
+		{
+			commandMock.Setup(c => c.Execute<bool>(It.IsAny<Command<bool>>())).Returns(false);
+
+			var result = (ViewResult)controller.Create(new SessionViewModel());
+
+			Assert.That(result.ViewName, Is.EqualTo(""));
+			Assert.That(controller.ModelState.First().Value.Errors[0].ErrorMessage, Is.EqualTo("Wrong username or password"));
+		}
+
+
+		[Test]
+		public void Create_PostsValidCredential_RedirectToHome()
+		{
+			commandMock.Setup(c => c.Execute<bool>(It.IsAny<Command<bool>>())).Returns(true);
+
+			var result = (RedirectToRouteResult)controller.Create(new SessionViewModel());
+
+			Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
+			Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
+		}
+
+		[Test]
+		public void Create_PostsValidCredential_SetsAuthCookie()
+		{
+			commandMock.Setup(c => c.Execute<bool>(It.IsAny<Command<bool>>())).Returns(true);
+
+			var result = (RedirectToRouteResult)controller.Create(new SessionViewModel{ Username = "a", PersistCookie = true });
+
+			authenticatorMock.Verify(a => a.SetAuthCookie("a", true));
+		}
 
 	}
 }
