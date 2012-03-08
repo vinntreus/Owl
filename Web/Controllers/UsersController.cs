@@ -5,6 +5,7 @@ using Core;
 using Core.Users;
 using Raven.Client;
 using Web.Models;
+using Web.Security;
 
 namespace Web.Controllers
 {
@@ -12,11 +13,13 @@ namespace Web.Controllers
     {
         private readonly ICommandExecutor commands;
         private readonly IStore store;
+        private IAuthenticator authenticator;
 
-        public UsersController(ICommandExecutor commands, IStore store)
+        public UsersController(ICommandExecutor commands, IStore store, IAuthenticator authenticator)
         {
             this.commands = commands;
             this.store = store;
+            this.authenticator = authenticator;
         }
 
         public ViewResult Index()
@@ -50,6 +53,7 @@ namespace Web.Controllers
             else
             {
                 commands.Execute(new ActivityCommand(string.Format("{0} was created", result.ReturnValue.Username)));
+                authenticator.SetAuthCookie(result.ReturnValue.Username, true);
             }
 
             return RedirectToAction("Index");

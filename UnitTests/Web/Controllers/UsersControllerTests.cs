@@ -7,6 +7,7 @@ using NUnit.Framework;
 using Web.Controllers;
 using Web.Models;
 using System.Linq;
+using Web.Security;
 
 namespace UnitTests.Web.Controllers
 {
@@ -16,15 +17,17 @@ namespace UnitTests.Web.Controllers
         private Mock<IStore> storeMock; 
         private UsersController controller;
         private Mock<ICommandExecutor> commandMock;
+        private Mock<IAuthenticator> authenticatorMock;
 
         [SetUp]
         public void Setup()
         {
             storeMock = new Mock<IStore>();
             commandMock = new Mock<ICommandExecutor>();
+            authenticatorMock = new Mock<IAuthenticator>();
             
             commandMock.Setup(c => c.Execute(It.IsAny<AddUserCommand>())).Returns(new CommandResult<IUser>(new User { Username = "a" }));
-            controller = new UsersController(commandMock.Object, storeMock.Object);
+            controller = new UsersController(commandMock.Object, storeMock.Object, authenticatorMock.Object);
         }
 
         [Test]
