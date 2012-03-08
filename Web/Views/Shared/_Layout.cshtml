@@ -6,6 +6,9 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
+    @if(User.Identity.IsAuthenticated){
+        @Html.ActionLink("Logout", "Destroy", "Session")
+    }
     @RenderBody()
 </body>
 </html>

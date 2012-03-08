@@ -13,8 +13,18 @@ namespace Core.Users
             return new User
             {
                 Username = message.Username,
-                Password = BCryptHelper.HashPassword(message.Password, BCryptHelper.GenerateSalt(12))
+				Password = HashPassword(message.Password)
             };
         }
-    }
+
+		private static string HashPassword(string password)
+		{			
+			return BCryptHelper.HashPassword(password, BCryptHelper.GenerateSalt(12));
+		}
+
+		public bool HasPassword(string p)
+		{
+			return BCryptHelper.CheckPassword(p, Password);
+		}
+	}
 }

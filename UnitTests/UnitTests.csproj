@@ -37,6 +37,9 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Raven.Client.Debug">
+      <HintPath>..\packages\RavenDB.1.0.616\lib\net40\Raven.Client.Debug.dll</HintPath>
+    </Reference>
     <Reference Include="Raven.Client.Lightweight, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -50,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\CommandExecutorTests.cs" />
+    <Compile Include="Core\CreateSessionCommandTests.cs" />
     <Compile Include="Core\UserTests.cs" />
     <Compile Include="Web\ControllerExtensions.cs" />
     <Compile Include="Web\Controllers\SessionControllerTests.cs" />

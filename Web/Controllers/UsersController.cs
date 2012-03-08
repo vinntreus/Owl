@@ -24,14 +24,14 @@ namespace Web.Controllers
             return View(store.AllUsers());
         }
 
-        //
-        // Post: /User/
+		[AllowAnonymous]
         [HttpGet]
         public ViewResult Create()
         {
             return View();
         }
 
+		[AllowAnonymous]
         [HttpPost]
         public ActionResult Create(AddUserMessage message)
         {

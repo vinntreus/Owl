@@ -9,11 +9,13 @@
 
 @using (Html.BeginForm())
 {
-    @Html.LabelFor(m => m.Username)
-    @Html.EditorFor(m => m.Username)
+  @Html.LabelFor(m => m.Username)
+  @Html.EditorFor(m => m.Username)
 
-    @Html.LabelFor(m => m.Password)
-    @Html.PasswordFor(m => m.Password)
+  @Html.LabelFor(m => m.Password)
+  @Html.PasswordFor(m => m.Password)
 
-    <input type="submit" value="Login"/>
+  <input type="submit" value="Login"/>
 }
+
+<h3>Don't have an account? @Html.ActionLink("Register", "Create", "Users") one now!</h3>
