@@ -4,7 +4,6 @@ namespace Core
 {
     public interface ICommandExecutor
     {
-        void Execute(Command command);
 		T Execute<T>(Command<T> command);
     }
 
@@ -16,13 +15,6 @@ namespace Core
         {
             this.session = session;
         }
-
-        public void Execute(Command command)
-        {
-            command.Session = session;
-            command.Execute();
-        }
-
 
 		public T Execute<T>(Command<T> command)
 		{

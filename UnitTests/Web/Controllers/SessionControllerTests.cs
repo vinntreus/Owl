@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using Core;
+using Core.Sessions;
+using Core.Users;
 using Moq;
 using NUnit.Framework;
 using Web.Controllers;
@@ -24,6 +26,7 @@ namespace UnitTests.Web.Controllers
 		{
 			commandMock = new Mock<ICommandExecutor>();
 			authenticatorMock = new Mock<IAuthenticator>();
+            commandMock.Setup(c => c.Execute(It.IsAny<CreateSessionCommand>())).Returns(new CommandResult<IUser>(new User { Username = "a" }));
 			controller = new SessionController(commandMock.Object, authenticatorMock.Object);
 		}
 
@@ -65,7 +68,7 @@ namespace UnitTests.Web.Controllers
 		[Test]
 		public void Create_PostsInvalidCredential_ReturnToSameViewWithModelError()
 		{
-			commandMock.Setup(c => c.Execute<bool>(It.IsAny<Command<bool>>())).Returns(false);
+            commandMock.Setup(c => c.Execute(It.IsAny<CreateSessionCommand>())).Returns(new CommandResult<IUser>("Wrong username or password"));
 
 			var result = (ViewResult)controller.Create(new SessionViewModel());
 

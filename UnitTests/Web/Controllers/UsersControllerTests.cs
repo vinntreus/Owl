@@ -6,6 +6,7 @@ using Moq;
 using NUnit.Framework;
 using Web.Controllers;
 using Web.Models;
+using System.Linq;
 
 namespace UnitTests.Web.Controllers
 {
@@ -21,6 +22,8 @@ namespace UnitTests.Web.Controllers
         {
             storeMock = new Mock<IStore>();
             commandMock = new Mock<ICommandExecutor>();
+            
+            commandMock.Setup(c => c.Execute(It.IsAny<AddUserCommand>())).Returns(new CommandResult<IUser>(new User { Username = "a" }));
             controller = new UsersController(commandMock.Object, storeMock.Object);
         }
 
@@ -87,6 +90,17 @@ namespace UnitTests.Web.Controllers
             controller.Create(createUserMessage);
 
             commandMock.Verify(u => u.Execute(It.IsAny<AddUserCommand>()));
+        }
+
+        [Test]
+        public void Create_PostWhichMakeTheCommandFail_ReturnsErrorFromCommand()
+        {
+            commandMock.Setup(c => c.Execute(It.IsAny<AddUserCommand>())).Returns(new CommandResult<IUser>("fel"));
+
+            var result = (ViewResult)controller.Create(new AddUserMessage());
+
+            Assert.That(result.ViewName, Is.EqualTo(""));
+            Assert.That(controller.ModelState.Values.First().Errors[0].ErrorMessage, Is.EqualTo("fel"));
         }
     }
 }

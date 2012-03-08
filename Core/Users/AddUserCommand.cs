@@ -1,8 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Core.Users
 {
-	public class AddUserCommand : Command
+	public class AddUserCommand : Command<CommandResult<IUser>>
 	{
 		private readonly IAddUserMessage message;
 
@@ -11,15 +12,17 @@ namespace Core.Users
 			this.message = message;
 		}
 
-		public override void Execute()
+        public override CommandResult<IUser> Execute()
         {
+            if (All<User>().Any(u => u.Username == message.Username))
+                return new CommandResult<IUser>("User already exists");
+            
             var user = User.Create(message);
-			
-			if (All<User>().Any(u => u.Username == message.Username))
-				throw new CreateUserException("User already exists");
 
             Session.Store(user);
             Session.SaveChanges();
-        }
-	}   
+
+            return new CommandResult<IUser>(user);
+        }     
+    }   
 }

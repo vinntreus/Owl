@@ -25,7 +25,7 @@ namespace UnitTests.Core
 		[Test]
 		public void ExecuteCommand_ShouldCallExecuteOnCommand()
 		{
-			var command = new Mock<Command>();			
+			var command = new Mock<Command<bool>>();			
 
 			executor.Execute(command.Object);
 
@@ -35,7 +35,7 @@ namespace UnitTests.Core
 		[Test]
 		public void ExecuteCommand_ShouldSetStoreOnCommand()
 		{
-			var command = Mock.Of<Command>();
+            var command = Mock.Of<Command<bool>>();
 
 			executor.Execute(command);
 

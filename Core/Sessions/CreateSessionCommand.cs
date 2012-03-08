@@ -14,25 +14,29 @@ namespace Core.Sessions
 	}
 
 
-	public class CreateSessionCommand : Command<bool>
+	public class CreateSessionCommand : Command<CommandResult<IUser>>
 	{
 		private ICreateSessionMessage message;
 
 		public CreateSessionCommand(ICreateSessionMessage message)
 		{
 			this.message = message;
-		}		
-
-		public override bool Execute()
-		{
-			bool isAuthorized = false;
-			
-			var user = All<User>().FirstOrDefault(u => u.Username == message.Username);
-
-			if (user != null)
-				isAuthorized = user.HasPassword(message.Password);
-			
-			return isAuthorized;
 		}
-	}
+
+        public override CommandResult<IUser> Execute()
+		{
+			var user = All<User>().FirstOrDefault(u => u.Username == message.Username);
+            var result = new CommandResult<IUser>(user);
+            if (user == null)
+            {
+                result.AddError("Username does not exist");
+            }
+            else if(!user.HasPassword(message.Password))
+            {
+                result.AddError("Wrong password");
+            }               
+			
+			return result;
+		}     
+    }
 }

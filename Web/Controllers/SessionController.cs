@@ -37,14 +37,15 @@ namespace Web.Controllers
 				return View(model);
 			}
 
-			var isAuthenticated = commandExecutor.Execute(new CreateSessionCommand(model));
-			if (isAuthenticated)
+			var result = commandExecutor.Execute(new CreateSessionCommand(model));
+			if (result.IsSuccess())
 			{
 				authenticator.SetAuthCookie(model.Username, model.PersistCookie);
+                commandExecutor.Execute(new ActivityCommand(string.Format("{0} logged in", result.ReturnValue.Username)));
 				return RedirectToAction("Index", "Home");
 			}
 
-			ModelState.AddModelError("", "Wrong username or password");
+			ModelState.AddModelError("", result.CombinedErrors());
 			return View(model);
 		}
 

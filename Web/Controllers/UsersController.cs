@@ -38,9 +38,19 @@ namespace Web.Controllers
             if(!ModelState.IsValid)
             {
                 return View(message);
-            }
+            }            
             
-            commands.Execute(new AddUserCommand(message));
+            var result = commands.Execute(new AddUserCommand(message));
+
+            if (!result.IsSuccess())
+            {
+                ModelState.AddModelError("", result.CombinedErrors());
+                return View(message);
+            }
+            else
+            {
+                commands.Execute(new ActivityCommand(string.Format("{0} was created", result.ReturnValue.Username)));
+            }
 
             return RedirectToAction("Index");
         }

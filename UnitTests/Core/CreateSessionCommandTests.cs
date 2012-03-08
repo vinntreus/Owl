@@ -23,7 +23,7 @@ namespace UnitTests.Core
 
 			var result = sessionCommand.Execute();
 
-			Assert.That(result, Is.False);
+			Assert.That(result.IsSuccess(), Is.False);
 		}
 
 		[Test]
@@ -35,7 +35,7 @@ namespace UnitTests.Core
 
 			var result = sessionCommand.Execute();
 
-			Assert.That(result, Is.True);
+			Assert.That(result.IsSuccess(), Is.True);
 		}
 
 		private class TestableCreateSessionCommand : CreateSessionCommand
