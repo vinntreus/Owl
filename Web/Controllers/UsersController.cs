@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using Core;
+using Core.Activities;
 using Core.Users;
 using Raven.Client;
 using Web.Models;
@@ -45,16 +46,16 @@ namespace Web.Controllers
             
             var result = commands.Execute(new AddUserCommand(message));
 
-            if (!result.IsSuccess())
-            {
-                ModelState.AddModelError("", result.CombinedErrors());
-                return View(message);
-            }
-            else
+            if (result.IsSuccess())
             {
                 commands.Execute(new ActivityCommand(string.Format("{0} was created", result.ReturnValue.Username)));
                 authenticator.SetAuthCookie(result.ReturnValue.Username, true);
             }
+            else
+            {
+                ModelState.AddModelError("", result.CombinedErrors());
+                return View(message);
+            }          
 
             return RedirectToAction("Index", "Home");
         }

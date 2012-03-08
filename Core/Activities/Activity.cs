@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Core
+namespace Core.Activities
 {
     public class Activity
     {

@@ -71,7 +71,7 @@ namespace UnitTests.Web.Controllers
             var result = (RedirectToRouteResult)controller.Create(new AddUserMessage {Username = "a", Password = "b"});
 
             Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
-            Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
+            Assert.That(result.RouteValues["controller"], Is.EqualTo(""));
         }
 
         [Test]

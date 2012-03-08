@@ -43,8 +43,8 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activity.cs" />
-    <Compile Include="ActivityCommand.cs" />
+    <Compile Include="Activities\Activity.cs" />
+    <Compile Include="Activities\ActivityCommand.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="CommandResult.cs" />
     <Compile Include="Sessions\CreateSessionCommand.cs" />

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Core;
+using Core.Activities;
 using Core.Sessions;
 using Web.Models;
 using Web.Security;
