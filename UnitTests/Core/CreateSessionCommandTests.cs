@@ -20,7 +20,6 @@ namespace UnitTests.Core
 		{
 			var message = Mock.Of<ICreateSessionMessage>();
 			var sessionCommand = new TestableCreateSessionCommand(message);
-			sessionCommand.Store = new Mock<IDocumentStore>().Object;
 
 			var result = sessionCommand.Execute();
 
@@ -32,7 +31,6 @@ namespace UnitTests.Core
 		{
 			var sessionValues = new CreateSessionMessage { Username = "a", Password = "b" };
 			var sessionCommand = new TestableCreateSessionCommand(sessionValues);
-			sessionCommand.Store = new Mock<IDocumentStore>().Object;
 			sessionCommand.Users.Add(User.Create(sessionValues));
 
 			var result = sessionCommand.Execute();
@@ -49,7 +47,7 @@ namespace UnitTests.Core
 			}
 			public IList<User> Users { get; set; }
 
-			public override IQueryable<T> All<T>(IDocumentSession session)
+			public override IQueryable<T> All<T>()
 			{
 				return Users.Cast<T>().AsQueryable<T>();
 			}

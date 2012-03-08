@@ -12,14 +12,14 @@ namespace UnitTests.Core
 	[TestFixture]
 	public class CommandExecutorTests
 	{
-		private Mock<IDocumentStore> storeMock;
+        private Mock<IDocumentSession> sessionMock;
 		private CommandExecutor executor;
 
 		[SetUp]
 		public void Setup()
 		{
-			storeMock = new Mock<IDocumentStore>();
-			executor = new CommandExecutor(storeMock.Object);
+			sessionMock = new Mock<IDocumentSession>();
+			executor = new CommandExecutor(sessionMock.Object);
 		}
 
 		[Test]
@@ -39,7 +39,7 @@ namespace UnitTests.Core
 
 			executor.Execute(command);
 
-			Assert.That(command.Store, Is.SameAs(storeMock.Object));
+			Assert.That(command.Session, Is.SameAs(sessionMock.Object));
 		}		
 	}
 }

@@ -14,15 +14,12 @@ namespace Core.Users
 		public override void Execute()
         {
             var user = User.Create(message);
+			
+			if (All<User>().Any(u => u.Username == message.Username))
+				throw new CreateUserException("User already exists");
 
-			InSession((s) =>
-			{
-				if (s.Query<User>().Any(u => u.Username == message.Username))
-					throw new CreateUserException("User already exists");
-
-				s.Store(user);
-				s.SaveChanges();
-			});
+            Session.Store(user);
+            Session.SaveChanges();
         }
-	}
+	}   
 }

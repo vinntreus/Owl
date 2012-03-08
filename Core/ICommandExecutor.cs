@@ -10,23 +10,23 @@ namespace Core
 
     public class CommandExecutor : ICommandExecutor
     {
-        private readonly IDocumentStore store;
+        private readonly IDocumentSession session;
 
-        public CommandExecutor(IDocumentStore store)
+        public CommandExecutor(IDocumentSession session)
         {
-            this.store = store;
+            this.session = session;
         }
 
         public void Execute(Command command)
         {
-            command.Store = store;
+            command.Session = session;
             command.Execute();
         }
 
 
 		public T Execute<T>(Command<T> command)
 		{
-			command.Store = store;
+			command.Session = session;
 			return command.Execute();
 		}
 	}

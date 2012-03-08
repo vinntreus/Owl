@@ -12,19 +12,16 @@ namespace Core
 
     public class Store : IStore
     {
-        private readonly IDocumentStore store;
+        private readonly IDocumentSession session;
 
-        public Store(IDocumentStore store)
+        public Store(IDocumentSession session)
         {
-            this.store = store;
+            this.session = session;
         }
 
         public IEnumerable<IUser> AllUsers()
         {
-            using (var session = store.OpenSession())
-            {
-                return session.Query<User>().ToList();
-            }
+            return session.Query<User>().ToList();           
         }
     }
 }

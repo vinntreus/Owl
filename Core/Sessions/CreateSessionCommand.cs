@@ -21,24 +21,17 @@ namespace Core.Sessions
 		public CreateSessionCommand(ICreateSessionMessage message)
 		{
 			this.message = message;
-		}
-
-		public virtual IQueryable<T> All<T>(IDocumentSession session)
-		{
-			return session.Query<T>();
-		}
+		}		
 
 		public override bool Execute()
 		{
-			Console.WriteLine("hippi");
 			bool isAuthorized = false;
-			InSession((s) =>
-			{
-				var user = All<User>(s).FirstOrDefault(u => u.Username == message.Username);
+			
+			var user = All<User>().FirstOrDefault(u => u.Username == message.Username);
 
-				if (user != null)
-					isAuthorized = user.HasPassword(message.Password);
-			});
+			if (user != null)
+				isAuthorized = user.HasPassword(message.Password);
+			
 			return isAuthorized;
 		}
 	}

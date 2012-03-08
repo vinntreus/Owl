@@ -1,19 +1,17 @@
 using System;
+using System.Linq;
 using Raven.Client;
 
 namespace Core
 {
 	public abstract class CommandBase
 	{
-		public IDocumentStore Store { get; set; }
+        public IDocumentSession Session { get; set; }
 
-		protected void InSession(Action<IDocumentSession> action)
-		{
-			using (var session = Store.OpenSession())
-			{
-				action(session);
-			}
-		}
+        public virtual IQueryable<T> All<T>()
+        {
+            return Session.Query<T>();
+        }
 	}
 
     public abstract class Command : CommandBase

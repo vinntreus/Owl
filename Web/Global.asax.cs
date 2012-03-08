@@ -2,6 +2,7 @@
 using System.Web.Routing;
 using Core;
 using Munq.MVC3;
+using Raven.Client;
 using Web.Attributes;
 using Web.Security;
 
@@ -36,6 +37,7 @@ namespace Web
             DependencyResolver.SetResolver(new MunqDependencyResolver());
             var ioc = MunqDependencyResolver.Container;
             ioc.Register(r => Store.DocumentStore);
+            ioc.Register<IDocumentSession>(r => r.Resolve<IDocumentStore>().OpenSession());
             ioc.Register<IStore, Core.Store>();
             ioc.Register<ICommandExecutor, CommandExecutor>();
 			ioc.Register<IAuthenticator, FormsAuthenticator>();
