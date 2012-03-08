@@ -11,6 +11,7 @@ using Web.Security;
 
 namespace Web.Controllers
 {
+	[AllowAnonymous]
     public class SessionController : Controller
     {
 		private ICommandExecutor commandExecutor;

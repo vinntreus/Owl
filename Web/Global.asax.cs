@@ -2,6 +2,7 @@
 using System.Web.Routing;
 using Core;
 using Munq.MVC3;
+using Web.Attributes;
 using Web.Security;
 
 namespace Web
@@ -11,6 +12,7 @@ namespace Web
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+			filters.Add(new RequireAuthorizationAttribute());
         }
 
         public static void RegisterRoutes(RouteCollection routes)
@@ -20,7 +22,7 @@ namespace Web
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Users", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }
 
