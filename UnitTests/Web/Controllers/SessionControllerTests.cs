@@ -95,5 +95,21 @@ namespace UnitTests.Web.Controllers
 			authenticatorMock.Verify(a => a.SetAuthCookie("a", true));
 		}
 
+        [Test]
+        public void Destroy_Always_CallsSignOut()
+        {
+            controller.Destroy();
+
+            authenticatorMock.Verify(a => a.SignOut());
+        }
+
+        [Test]
+        public void Destroy_Always_RedirectsToHome()
+        {
+            var result = controller.Destroy();
+
+            Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
+            Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
+        }
 	}
 }

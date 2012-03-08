@@ -15,12 +15,12 @@ namespace Web.Controllers
     public class SessionController : Controller
     {
 		private ICommandExecutor commandExecutor;
-		private IAuthenticator authenticate;
+		private IAuthenticator authenticator;
 
 		public SessionController(ICommandExecutor commandExecutor, IAuthenticator authenticator)
 		{
 			this.commandExecutor = commandExecutor;
-			this.authenticate = authenticator;
+			this.authenticator = authenticator;
 		}
 
 		[HttpGet]
@@ -40,12 +40,18 @@ namespace Web.Controllers
 			var isAuthenticated = commandExecutor.Execute(new CreateSessionCommand(model));
 			if (isAuthenticated)
 			{
-				authenticate.SetAuthCookie(model.Username, model.PersistCookie);
+				authenticator.SetAuthCookie(model.Username, model.PersistCookie);
 				return RedirectToAction("Index", "Home");
 			}
 
 			ModelState.AddModelError("", "Wrong username or password");
 			return View(model);
 		}
-	}
+
+        public RedirectToRouteResult Destroy()
+        {
+            authenticator.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+    }
 }

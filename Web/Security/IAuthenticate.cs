@@ -9,13 +9,19 @@ namespace Web.Security
 	public interface IAuthenticator
 	{
 		void SetAuthCookie(string userName, bool createPersistentCookie);
+        void SignOut();
 	}
 
 	public class FormsAuthenticator : IAuthenticator
 	{
 		public void SetAuthCookie(string userName, bool createPersistentCookie)
 		{
-			FormsAuthentication.SetAuthCookie(userName, createPersistentCookie);
+			FormsAuthentication.SetAuthCookie(userName, createPersistentCookie);            
 		}
-	}
+
+        public void SignOut()
+        {
+          FormsAuthentication.SignOut();
+        }
+    }
 }
