@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Core.Activities
 {
+    
     public class Activity
     {
         public int Id { get; set; }
@@ -24,5 +25,10 @@ namespace Core.Activities
         {
             return string.Format("{0} {1}", Date.ToShortDateString(), Text);
         }
-    }
+
+        public string GetDate()
+        {
+            return Date.ToString("yyy-MM-dd HH:mm:ss");
+        }
+    }   
 }

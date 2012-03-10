@@ -57,6 +57,7 @@
     <Compile Include="CommandResult.cs" />
     <Compile Include="DomainEvents.cs" />
     <Compile Include="IQuery.cs" />
+    <Compile Include="Queries\HomeQuery.cs" />
     <Compile Include="Sessions\CreateSessionCommand.cs" />
     <Compile Include="Users\CreateUserException.cs" />
     <Compile Include="ICommandExecutor.cs" />

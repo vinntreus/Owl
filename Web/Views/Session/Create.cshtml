@@ -1,10 +1,10 @@
 ﻿@model Web.Models.SessionViewModel
 
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Owl - Login";
 }
 
-<h2>Enter your credentials to login</h2>
+<h1>Enter your credentials to login</h1>
 @Html.ValidationSummary()
 
 @using (Html.BeginForm())
@@ -18,4 +18,4 @@
   <input type="submit" value="Login"/>
 }
 
-<h3>Don't have an account? @Html.ActionLink("Register", "Create", "Users") one now!</h3>
+<h3>Don't have an account? @Html.ActionLink("Create", "Create", "Users") one now!</h3>

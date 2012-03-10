@@ -1,5 +1,17 @@
-﻿@{
-    ViewBag.Title = "Index";
+﻿@model Core.Queries.HomeViewModel
+
+@{
+    ViewBag.Title = "Owl - Home";
 }
 
-<h2>Index</h2>
+<h1>Home</h1>
+
+<h2>Activities</h2>
+<ul>
+@foreach (var activity in Model.Activities) {
+    <li>
+        <span class="date">@activity.Date</span>
+        <span class="text">@activity.Text</span>
+    </li>
+}
+</ul>
