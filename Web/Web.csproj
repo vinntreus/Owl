@@ -132,6 +132,8 @@
     <Compile Include="Attributes\AllowAnonymousAttribute.cs" />
     <Compile Include="Attributes\RequireAuthorizationAttribute.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LibraryController.cs" />
+    <Compile Include="Models\CreateLibraryViewModel.cs" />
     <Compile Include="Security\IAuthenticate.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -186,6 +188,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Session\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Library\Create.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
