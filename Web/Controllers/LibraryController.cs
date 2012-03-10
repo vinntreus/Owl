@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using Core;
 using Core.Libraries;
+using Core.Queries;
 using Web.Models;
 
 namespace Web.Controllers
@@ -8,15 +9,17 @@ namespace Web.Controllers
     public class LibraryController : Controller
     {
         private ICommandExecutor commandExecutor;
+        private IStore store;
 
-        public LibraryController(ICommandExecutor commandExecutor)
+        public LibraryController(ICommandExecutor commandExecutor, IStore store)
         {
             this.commandExecutor = commandExecutor;
+            this.store = store;
         }
 
         public ActionResult Index(int id)
         {
-            return View();
+            return View(store.Execute(new LibraryQuery(id)));
         }
 
         [HttpGet]

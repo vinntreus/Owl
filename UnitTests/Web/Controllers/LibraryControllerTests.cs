@@ -5,6 +5,7 @@ using System.Text;
 using System.Web.Mvc;
 using Core;
 using Core.Libraries;
+using Core.Queries;
 using Moq;
 using NUnit.Framework;
 using Web.Controllers;
@@ -17,12 +18,14 @@ namespace UnitTests.Web.Controllers
     {
         private LibraryController controller;
         private Mock<ICommandExecutor> commandMock;
+        private Mock<IStore> storeMock;
 
         [SetUp]
         public void Setup()
         {
             commandMock = new Mock<ICommandExecutor>();
-            controller = new LibraryController(commandMock.Object);
+            storeMock = new Mock<IStore>();
+            controller = new LibraryController(commandMock.Object, storeMock.Object);
         }
 
         [Test]
@@ -84,5 +87,24 @@ namespace UnitTests.Web.Controllers
             Assert.That(result.ViewName, Is.EqualTo(""));
             Assert.That(controller.ModelState.First().Value.Errors[0].ErrorMessage, Is.EqualTo("fel"));
         }
+
+        [Test]
+        public void Index_Always_ReturnsIndexView()
+        {
+            var result = (ViewResult)controller.Index(1);
+
+            Assert.That(result.ViewName, Is.EqualTo(""));
+        }
+
+        [Test]
+        public void Index_Always_ReturnsHomeViewModel()
+        {
+            var model = new LibraryViewModel(Mock.Of<ILibrary>());
+            storeMock.Setup(s => s.Execute(It.IsAny<LibraryQuery>())).Returns(model);
+
+            var result = (ViewResult)controller.Index(1);
+
+            Assert.That(result.Model, Is.SameAs(model));
+        }     
     }
 }

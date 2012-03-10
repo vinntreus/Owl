@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Core\ActivityHandlerTests.cs" />
     <Compile Include="Core\CommandExecutorTests.cs" />
+    <Compile Include="Core\CreateLibraryCommandTests.cs" />
     <Compile Include="Core\CreateSessionCommandTests.cs" />
     <Compile Include="Core\UserTests.cs" />
     <Compile Include="Web\ControllerExtensions.cs" />

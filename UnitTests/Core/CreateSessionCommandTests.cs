@@ -53,7 +53,7 @@ namespace UnitTests.Core
 			}
 		}
 
-		private class CreateSessionMessage : ICreateSessionMessage, IAddUserMessage
+		private class CreateSessionMessage : ICreateSessionMessage, ICreateUserMessage
 		{
 			public string Username { get; set; }
 

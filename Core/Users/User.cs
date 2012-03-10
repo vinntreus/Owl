@@ -8,7 +8,7 @@ namespace Core.Users
         public string Username { get; set; }
         public string Password { get; set; }
 
-        public static User Create(IAddUserMessage message)
+        public static User Create(ICreateUserMessage message)
         {
             return new User
             {

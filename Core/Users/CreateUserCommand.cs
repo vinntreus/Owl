@@ -19,9 +19,9 @@ namespace Core.Users
 
 	public class CreateUserCommand : Command<IUser>
 	{
-		private readonly IAddUserMessage message;
+		private readonly ICreateUserMessage message;
 
-		public CreateUserCommand(IAddUserMessage message)
+		public CreateUserCommand(ICreateUserMessage message)
 		{
 			this.message = message;
 		}

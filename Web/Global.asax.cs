@@ -2,6 +2,7 @@
 using System.Web.Routing;
 using Core;
 using Core.Activities;
+using Core.Libraries;
 using Core.Sessions;
 using Core.Users;
 using Munq;
@@ -51,6 +52,7 @@ namespace Web
             //Registry for domain events
             ioc.Register<IHandle<CreatedSession>, CreatedSessionActivity>();
             ioc.Register<IHandle<CreatedUser>, CreatedUserActivity>();
+            ioc.Register<IHandle<CreatedLibrary>, CreatedLibraryActivity>();
         }
     }
 }

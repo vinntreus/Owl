@@ -34,9 +34,6 @@
     <Reference Include="DevOne.Security.Cryptography.BCrypt">
       <HintPath>..\packages\BCrypt.1.0.0.0\lib\DevOne.Security.Cryptography.BCrypt.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
     <Reference Include="Munq.IocContainer">
       <HintPath>..\packages\Munq.IocContainer.3.1.4\Lib\Munq.IocContainer.dll</HintPath>
     </Reference>
@@ -47,18 +44,24 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\Activity.cs" />
     <Compile Include="Activities\ActivityHandler.cs" />
+    <Compile Include="Activities\CreatedLibraryActivity.cs" />
     <Compile Include="Activities\CreatedSessionActivity.cs" />
     <Compile Include="Activities\CreatedUserActivity.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="CommandResult.cs" />
+    <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="DomainEvents.cs" />
     <Compile Include="IQuery.cs" />
     <Compile Include="Libraries\CreateLibraryCommand.cs" />
+    <Compile Include="Libraries\Library.cs" />
+    <Compile Include="Libraries\LibraryExtensions.cs" />
     <Compile Include="Queries\HomeQuery.cs" />
+    <Compile Include="Queries\LibraryQuery.cs" />
     <Compile Include="Sessions\CreateSessionCommand.cs" />
     <Compile Include="Users\CreateUserException.cs" />
     <Compile Include="ICommandExecutor.cs" />

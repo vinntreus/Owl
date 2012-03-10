@@ -11,7 +11,7 @@ namespace Core.Queries
 
         public HomeViewModel Execute(Raven.Client.IDocumentSession session)
         {
-            var activities = session.Query<Activity>().OrderByDescending(a => a.Date).ToList().Select(a => new ActivityViewModel(a.GetDate(), a.Text));
+            var activities = session.Query<Activity>().OrderByDescending(a => a.Date).ToList().Select(a => new ActivityViewModel(a.Date.ToDateString(), a.Text));
 
             return new HomeViewModel(activities);
         }

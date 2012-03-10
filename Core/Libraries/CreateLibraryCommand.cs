@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Core.Users;
 
 namespace Core.Libraries
 {
@@ -9,12 +10,27 @@ namespace Core.Libraries
     {
         int Id { get; }
         string Name { get; }
+        IUser Creator { get; }
+        string Created { get; }
     }
 
     public interface ICreateLibraryMessage
     {
         string Name { get; }
     }
+
+    public class CreatedLibrary : IDomainEvent
+    {
+        public CreatedLibrary(Library library)
+        {
+            if (library == null)
+                throw new ArgumentNullException("library");
+
+            this.Library = library;
+        }
+
+        public Library Library { get; private set; }
+    }    
 
     public class CreateLibraryCommand : Command<ILibrary>
     {
@@ -27,7 +43,17 @@ namespace Core.Libraries
 
         public override CommandResult<ILibrary> Execute()
         {
-            throw new NotImplementedException();
+            var library = Library.Create(message);
+            library.Creator = CurrentUser;
+
+            Session.Store(library);
+            Session.SaveChanges();
+
+            DomainEvents.Raise(new CreatedLibrary(library));
+
+            return new CommandResult<ILibrary>(library.ToViewModel());
         }
+
+       
     }
 }

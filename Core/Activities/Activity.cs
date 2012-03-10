@@ -19,16 +19,6 @@ namespace Core.Activities
                 Date = DateTime.Now,
                 Text = text
             };
-        }
-
-        public override string ToString()
-        {
-            return string.Format("{0} {1}", Date.ToShortDateString(), Text);
-        }
-
-        public string GetDate()
-        {
-            return Date.ToString("yyy-MM-dd HH:mm:ss");
-        }
+        }       
     }   
 }

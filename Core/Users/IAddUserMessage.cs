@@ -1,6 +1,6 @@
 namespace Core.Users
 {
-    public interface IAddUserMessage
+    public interface ICreateUserMessage
     {
         string Username { get; }
         string Password { get; }
