@@ -58,6 +58,7 @@
     <Compile Include="Core\UserTests.cs" />
     <Compile Include="Web\ControllerExtensions.cs" />
     <Compile Include="Web\Controllers\HomeControllerTests.cs" />
+    <Compile Include="Web\Controllers\LibraryControllerTests.cs" />
     <Compile Include="Web\Controllers\SessionControllerTests.cs" />
     <Compile Include="Web\Controllers\UsersControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

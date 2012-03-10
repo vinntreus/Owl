@@ -1,0 +1,16 @@
+﻿@model Web.Models.CreateLibraryViewModel
+@{
+    ViewBag.Title = "Owl - Create library";
+}
+
+<h1>Create library</h1>
+
+@Html.ValidationSummary()
+
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(m => m.Name)
+  @Html.EditorFor(m => m.Name)
+
+  <input type="submit" value="Login"/>
+}
