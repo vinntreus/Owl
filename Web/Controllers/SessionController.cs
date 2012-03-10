@@ -41,8 +41,7 @@ namespace Web.Controllers
 			var result = commandExecutor.Execute(new CreateSessionCommand(model));
 			if (result.IsSuccess())
 			{
-				authenticator.SetAuthCookie(model.Username, model.PersistCookie);
-                commandExecutor.Execute(new ActivityCommand(string.Format("{0} logged in", result.ReturnValue.Username)));
+				authenticator.SetAuthCookie(model.Username, model.PersistCookie);                
 				return RedirectToAction("Index", "Home");
 			}
 

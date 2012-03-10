@@ -6,7 +6,7 @@ namespace Core
 {
 	public abstract class Command<T>
 	{
-		public abstract T Execute();
+		public abstract CommandResult<T> Execute();
 
         public IDocumentSession Session { get; set; }
 

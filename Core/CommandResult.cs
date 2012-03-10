@@ -5,7 +5,11 @@ using System.Text;
 
 namespace Core
 {
-    public class CommandResult<T>
+    public interface ICommandResult
+    {
+        bool IsSuccess();
+    }
+    public class CommandResult<T> : ICommandResult
     {
         protected List<string> errors;
         public CommandResult(T returnValue)

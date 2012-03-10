@@ -13,8 +13,20 @@ namespace Core.Sessions
 		string Password { get; }
 	}
 
+    public class CreatedSession : IDomainEvent
+    {
+        public CreatedSession(User user)
+        {
+            if (user == null)
+                throw new ArgumentNullException("user");
 
-	public class CreateSessionCommand : Command<CommandResult<IUser>>
+            this.User = user;
+        }
+
+        public User User { get; private set; }
+    }    
+
+	public class CreateSessionCommand : Command<IUser>
 	{
 		private ICreateSessionMessage message;
 
@@ -34,7 +46,12 @@ namespace Core.Sessions
             else if(!user.HasPassword(message.Password))
             {
                 result.AddError("Wrong password");
-            }               
+            }
+
+            if (result.IsSuccess())
+            {
+                DomainEvents.Raise(new CreatedSession(user));
+            }
 			
 			return result;
 		}     

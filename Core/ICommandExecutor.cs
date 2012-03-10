@@ -1,10 +1,11 @@
+using Core.Activities;
 using Raven.Client;
 
 namespace Core
 {
     public interface ICommandExecutor
     {
-		T Execute<T>(Command<T> command);
+		CommandResult<T> Execute<T>(Command<T> command);
     }
 
     public class CommandExecutor : ICommandExecutor
@@ -16,9 +17,10 @@ namespace Core
             this.session = session;
         }
 
-		public T Execute<T>(Command<T> command)
+		public CommandResult<T> Execute<T>(Command<T> command)
 		{
 			command.Session = session;
+           
 			return command.Execute();
 		}
 	}

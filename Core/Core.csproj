@@ -34,6 +34,12 @@
     <Reference Include="DevOne.Security.Cryptography.BCrypt">
       <HintPath>..\packages\BCrypt.1.0.0.0\lib\DevOne.Security.Cryptography.BCrypt.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Munq.IocContainer">
+      <HintPath>..\packages\Munq.IocContainer.3.1.4\Lib\Munq.IocContainer.dll</HintPath>
+    </Reference>
     <Reference Include="Raven.Client.Lightweight, Version=1.0.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
       <HintPath>..\packages\RavenDB-Client.1.0.616\lib\net40\Raven.Client.Lightweight.dll</HintPath>
     </Reference>
@@ -44,9 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\Activity.cs" />
-    <Compile Include="Activities\ActivityCommand.cs" />
+    <Compile Include="Activities\ActivityHandler.cs" />
+    <Compile Include="Activities\CreatedSessionActivity.cs" />
+    <Compile Include="Activities\CreatedUserActivity.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="CommandResult.cs" />
+    <Compile Include="DomainEvents.cs" />
     <Compile Include="IQuery.cs" />
     <Compile Include="Sessions\CreateSessionCommand.cs" />
     <Compile Include="Users\CreateUserException.cs" />
@@ -55,7 +64,7 @@
     <Compile Include="IStore.cs" />
     <Compile Include="Users\IUser.cs" />
     <Compile Include="Users\User.cs" />
-    <Compile Include="Users\AddUserCommand.cs" />
+    <Compile Include="Users\CreateUserCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\UsersQuery.cs" />
   </ItemGroup>

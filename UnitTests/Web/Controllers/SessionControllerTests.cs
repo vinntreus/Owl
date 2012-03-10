@@ -80,7 +80,7 @@ namespace UnitTests.Web.Controllers
 		[Test]
 		public void Create_PostsValidCredential_RedirectToHome()
 		{
-			commandMock.Setup(c => c.Execute<bool>(It.IsAny<Command<bool>>())).Returns(true);
+            commandMock.Setup(c => c.Execute<IUser>(It.IsAny<Command<IUser>>())).Returns(new CommandResult<IUser>());
 
 			var result = (RedirectToRouteResult)controller.Create(new SessionViewModel());
 
@@ -91,7 +91,7 @@ namespace UnitTests.Web.Controllers
 		[Test]
 		public void Create_PostsValidCredential_SetsAuthCookie()
 		{
-			commandMock.Setup(c => c.Execute<bool>(It.IsAny<Command<bool>>())).Returns(true);
+            commandMock.Setup(c => c.Execute<IUser>(It.IsAny<Command<IUser>>())).Returns(new CommandResult<IUser>());
 
 			var result = (RedirectToRouteResult)controller.Create(new SessionViewModel{ Username = "a", PersistCookie = true });
 

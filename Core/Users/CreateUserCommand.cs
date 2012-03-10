@@ -1,13 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Core.Users
 {
-	public class AddUserCommand : Command<CommandResult<IUser>>
+    public class CreatedUser : IDomainEvent
+    {
+        public CreatedUser(User user)
+        {
+            if (user == null)
+                throw new ArgumentNullException("user");
+
+            this.User = user;
+        }
+
+        public User User { get; private set; }
+    }
+
+	public class CreateUserCommand : Command<IUser>
 	{
 		private readonly IAddUserMessage message;
 
-		public AddUserCommand(IAddUserMessage message)
+		public CreateUserCommand(IAddUserMessage message)
 		{
 			this.message = message;
 		}
@@ -21,6 +35,8 @@ namespace Core.Users
 
             Session.Store(user);
             Session.SaveChanges();
+
+            DomainEvents.Raise(new CreatedUser(user));
 
             return new CommandResult<IUser>(user);
         }     

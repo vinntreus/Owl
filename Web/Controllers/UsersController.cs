@@ -44,11 +44,10 @@ namespace Web.Controllers
                 return View(message);
             }            
             
-            var result = commands.Execute(new AddUserCommand(message));
+            var result = commands.Execute(new CreateUserCommand(message));
 
             if (result.IsSuccess())
             {
-                commands.Execute(new ActivityCommand(string.Format("{0} was created", result.ReturnValue.Username)));
                 authenticator.SetAuthCookie(result.ReturnValue.Username, true);
             }
             else

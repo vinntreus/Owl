@@ -1,6 +1,10 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 using Core;
+using Core.Activities;
+using Core.Sessions;
+using Core.Users;
+using Munq;
 using Munq.MVC3;
 using Raven.Client;
 using Web.Attributes;
@@ -35,12 +39,18 @@ namespace Web
             RegisterRoutes(RouteTable.Routes);
 
             DependencyResolver.SetResolver(new MunqDependencyResolver());
-            var ioc = MunqDependencyResolver.Container;
+            
+            var ioc = DomainEvents.Container = MunqDependencyResolver.Container;
+             
             ioc.Register(r => Store.DocumentStore);
             ioc.Register<IDocumentSession>(r => r.Resolve<IDocumentStore>().OpenSession());
             ioc.Register<IStore, Core.Store>();
             ioc.Register<ICommandExecutor, CommandExecutor>();
 			ioc.Register<IAuthenticator, FormsAuthenticator>();
+
+            //Registry for domain events
+            ioc.Register<IHandle<CreatedSession>, CreatedSessionActivity>();
+            ioc.Register<IHandle<CreatedUser>, CreatedUserActivity>();
         }
     }
 }

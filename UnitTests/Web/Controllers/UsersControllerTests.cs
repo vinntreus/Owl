@@ -26,7 +26,7 @@ namespace UnitTests.Web.Controllers
             commandMock = new Mock<ICommandExecutor>();
             authenticatorMock = new Mock<IAuthenticator>();
             
-            commandMock.Setup(c => c.Execute(It.IsAny<AddUserCommand>())).Returns(new CommandResult<IUser>(new User { Username = "a" }));
+            commandMock.Setup(c => c.Execute(It.IsAny<CreateUserCommand>())).Returns(new CommandResult<IUser>(new User { Username = "a" }));
             controller = new UsersController(commandMock.Object, storeMock.Object, authenticatorMock.Object);
         }
 
@@ -92,13 +92,13 @@ namespace UnitTests.Web.Controllers
 
             controller.Create(createUserMessage);
 
-            commandMock.Verify(u => u.Execute(It.IsAny<AddUserCommand>()));
+            commandMock.Verify(u => u.Execute(It.IsAny<CreateUserCommand>()));
         }
 
         [Test]
         public void Create_PostWhichMakeTheCommandFail_ReturnsErrorFromCommand()
         {
-            commandMock.Setup(c => c.Execute(It.IsAny<AddUserCommand>())).Returns(new CommandResult<IUser>("fel"));
+            commandMock.Setup(c => c.Execute(It.IsAny<CreateUserCommand>())).Returns(new CommandResult<IUser>("fel"));
 
             var result = (ViewResult)controller.Create(new AddUserMessage());
 
