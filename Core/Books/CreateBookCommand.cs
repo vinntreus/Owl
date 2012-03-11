@@ -29,9 +29,9 @@ namespace Core.Books
 
         public Book Book { get; private set; }
         public Library Library { get; private set; }
-    }    
+    }
 
-    public class CreateBookCommand : Command<IBook>
+    public class CreateBookCommand : Command<CreatedBook>
     {
         private ICreateBookMessage message;
 
@@ -39,7 +39,7 @@ namespace Core.Books
         {
             this.message = message;
         }
-        public override CommandResult<IBook> Execute()
+        public override CommandResult<CreatedBook> Execute()
         {
             var book = Book.Create(message);
             book.Creator = this.CurrentUser;
@@ -52,9 +52,10 @@ namespace Core.Books
             Session.Store(book);
             Session.SaveChanges();
 
-            DomainEvents.Raise(new CreatedBook(book, library));
+            var createdBook = new CreatedBook(book, library);
+            DomainEvents.Raise(createdBook);
 
-            return new CommandResult<IBook>(book);
+            return new CommandResult<CreatedBook>(createdBook);
         }
     }
 }

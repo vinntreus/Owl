@@ -42,7 +42,7 @@ namespace Web.Controllers
 
             if (result.IsSuccess())
             {
-                return RedirectToAction("Index", new { id = result.ReturnValue.Id });
+                return RedirectToAction("Index", new { id = result.ReturnValue.Book.Id, fromLibrary = result.ReturnValue.Library.Id });
             }
 
             ModelState.AddModelError("", result.CombinedErrors());
