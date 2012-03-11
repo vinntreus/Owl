@@ -1,0 +1,39 @@
+﻿@model Web.Models.CreateBookViewModel
+
+@{
+    ViewBag.Title = "Owl - Add book";
+}
+
+<ul class="breadcrumb">
+    <li>@Html.ActionLink("Home", "Index", "Home", null, null)</li>
+    <li>@Html.ActionLink("Library", "Index", "Library", new { id = Model.LibraryId }, null)</li>
+</ul>
+
+<h1>Add book</h1>
+
+@Html.ValidationSummary()
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(m => m.LibraryId)
+    
+  @Html.LabelFor(m => m.Title)
+  @Html.EditorFor(m => m.Title)
+
+  @Html.LabelFor(m => m.Description)
+  @Html.EditorFor(m => m.Description)
+
+  @Html.LabelFor(m => m.Author)
+  @Html.EditorFor(m => m.Author)
+
+  @Html.LabelFor(m => m.Published)
+  @Html.EditorFor(m => m.Published)
+
+  @Html.LabelFor(m => m.Tags)
+  @Html.EditorFor(m => m.Tags)
+
+  @Html.LabelFor(m => m.CoverSource)
+  @Html.EditorFor(m => m.CoverSource)
+
+  <input type="submit" value="Create"/>
+}

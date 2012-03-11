@@ -54,6 +54,7 @@
     <Compile Include="Activities\CreatedUserActivity.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="CommandResult.cs" />
+    <Compile Include="Users\CurrentUser.cs" />
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="DomainEvents.cs" />
     <Compile Include="IQuery.cs" />

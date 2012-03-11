@@ -20,13 +20,7 @@ namespace Core
         {
             get
             {
-                var identity = System.Web.HttpContext.Current.User.Identity;
-                if (!identity.IsAuthenticated)
-                    return null;
-
-                var username = identity.Name;
-
-                return All<User>().First(u => u.Username == username);
+                return new CurrentUser(All<User>()).Get();
             }
         }
 	}   

@@ -1,0 +1,43 @@
+﻿form
+{    
+    padding: 20px;
+    background-color: #efefef;
+}
+
+    form:after
+    {
+        height: 0;
+        line-height: 0;
+        visibility: hidden;
+        content: '.';
+        display: block;
+        clear: both;
+    }
+
+form label
+{
+    display: block;
+    width: 200px;
+    float: left;
+    clear: left;
+    margin-bottom: 10px;
+}
+
+form input
+{
+    display: block;
+    float: left;
+    clear: right;
+}
+
+    form input[type=text]
+    {
+        border: 2px solid #ccc;
+        border-radius: 3px;
+    }
+
+form input[type=submit]
+{
+    clear: both;
+    margin-left: 200px;      
+}

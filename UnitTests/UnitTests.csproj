@@ -58,6 +58,7 @@
     <Compile Include="Core\CreateSessionCommandTests.cs" />
     <Compile Include="Core\UserTests.cs" />
     <Compile Include="Web\ControllerExtensions.cs" />
+    <Compile Include="Web\Controllers\BookControllerTests.cs" />
     <Compile Include="Web\Controllers\HomeControllerTests.cs" />
     <Compile Include="Web\Controllers\LibraryControllerTests.cs" />
     <Compile Include="Web\Controllers\SessionControllerTests.cs" />

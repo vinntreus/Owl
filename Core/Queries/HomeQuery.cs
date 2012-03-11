@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Core.Activities;
+using Core.Libraries;
+using Core.Users;
 
 namespace Core.Queries
 {
@@ -11,11 +13,22 @@ namespace Core.Queries
 
         public HomeViewModel Execute(Raven.Client.IDocumentSession session)
         {
-            var activities = session.Query<Activity>().OrderByDescending(a => a.Date).ToList().Select(a => new ActivityViewModel(a.Date.ToDateString(), a.Text));
+            var currentUser = session.GetCurrentUser();
+            
+            var libraries = session.Query<Library>()
+                                    .Where(l => l.Creator.Id == currentUser.Id)
+                                    .OrderByDescending(l => l.Created)
+                                    .ToList()
+                                    .Select(l => l.ToViewModel());
 
-            return new HomeViewModel(activities);
+            var activities = session.Query<Activity>()
+                                    .OrderByDescending(a => a.Date)
+                                    .ToList()
+                                    .Select(a => new ActivityViewModel(a.Date.ToDateString(), a.Text));            
+
+            return new HomeViewModel(activities, libraries);
         }
-    }
+    }   
     
     public class ActivityViewModel
     {
@@ -31,11 +44,14 @@ namespace Core.Queries
 
     public class HomeViewModel
     {
-        public HomeViewModel(IEnumerable<ActivityViewModel> activities)
+        public HomeViewModel(IEnumerable<ActivityViewModel> activities, IEnumerable<ILibrary> libraries)
         {
             Activities = activities;
+            Libraries = libraries;
         }
 
         public IEnumerable<ActivityViewModel> Activities { get; private set; }
+
+        public IEnumerable<ILibrary> Libraries { get; private set; }
     }
 }

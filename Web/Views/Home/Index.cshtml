@@ -6,6 +6,17 @@
 
 <h1>Home</h1>
 
+ @Html.ActionLink("Users", "Index", "Users", null, new { @class="btn-primary" })
+ @Html.ActionLink("Create library", "Create", "Library", null, new { @class="btn-primary" })
+<h2>Libraries</h2>
+<ul>
+@foreach (var library in Model.Libraries) {
+    <li>
+        @Html.ActionLink(library.Name, "Index", "Library", new { id = library.Id }, null)
+    </li>
+}
+</ul>
+
 <h2>Activities</h2>
 <ul>
 @foreach (var activity in Model.Activities) {

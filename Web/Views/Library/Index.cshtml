@@ -3,7 +3,11 @@
 @{
     ViewBag.Title = "Owl - Library";
 }
+<ul class="breadcrumb">
+    <li>@Html.ActionLink("Home", "Index", "Home", null, null)</li>
+</ul>
 
+@Html.ActionLink("Add book", "Create", "Book", new { libraryId = Model.Library.Id }, null)
 <h1>@Model.Library.Name</h1>
 <p>Created by: @Model.Library.Creator.Username</p>
 <p>Created: @Model.Library.Created</p>

@@ -3,6 +3,10 @@
 @{
     ViewBag.Title = "Owl - All users";    
 }
+<ul class="breadcrumb">
+    <li>@Html.ActionLink("Home", "Index", "Home", null, null)</li>
+</ul>
+
 <h1>All users</h1>
 <ul>
 @foreach(var user in Model)

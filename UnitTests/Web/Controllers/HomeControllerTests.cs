@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Core;
+using Core.Libraries;
 using Core.Queries;
 using Moq;
 using NUnit.Framework;
@@ -32,7 +33,7 @@ namespace UnitTests.Web.Controllers
          [Test]
         public void Index_Always_ReturnsHomeViewModel()
         {
-            var model = new HomeViewModel(new List<ActivityViewModel>());
+            var model = new HomeViewModel(new List<ActivityViewModel>(), new List<ILibrary>());
             storeMock.Setup(s => s.Execute(It.IsAny<HomeQuery>())).Returns(model);
 
             var result = (ViewResult)controller.Index();
