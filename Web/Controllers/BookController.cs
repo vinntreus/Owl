@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using Core;
+using Core.Books;
 using Web.Models;
 
 namespace Web.Controllers
@@ -13,6 +14,12 @@ namespace Web.Controllers
         {
             this.commandExecutor = commandExecutor;
         }
+        
+        public ViewResult Index(int id)
+        {
+            return View();
+        }
+
 
         [HttpGet]
         public ViewResult Create(int libraryId)
@@ -21,9 +28,24 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public ViewResult Create(CreateBookViewModel model)
+        public ActionResult Create(CreateBookViewModel model)
         {
-            throw new NotImplementedException();
-        }
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var result = commandExecutor.Execute(new CreateBookCommand(model));
+
+            if (result.IsSuccess())
+            {
+                return RedirectToAction("Index", new { id = result.ReturnValue.Id });
+            }
+
+            ModelState.AddModelError("", result.CombinedErrors());
+
+            return View(model);
+
+        }        
     }
 }

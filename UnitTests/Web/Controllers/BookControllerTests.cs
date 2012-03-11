@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using Core;
+using Core.Books;
 using Moq;
 using NUnit.Framework;
 using Web.Controllers;
@@ -56,5 +57,60 @@ namespace UnitTests.Web.Controllers
 
             Assert.That(hasAttribute, Is.True);
         }
+
+        [Test]
+        public void Create_PostsModelStateIsInvalid_ReturnsViewWithPassedMessage()
+        {
+            controller.ModelState.AddModelError("fel", "felet");
+            var viewModel = new CreateBookViewModel();
+            var result = (ViewResult)controller.Create(viewModel);
+
+            Assert.That(result.ViewName, Is.EqualTo(""));
+            Assert.That(result.Model, Is.SameAs(viewModel));
+        }
+
+        [Test]
+        public void Create_OnCreated_RedirectToCreatedBookViewPage()
+        {
+            var book = new Mock<IBook>();
+            book.Setup(l => l.Id).Returns(1);
+            commandMock.Setup(c => c.Execute(It.IsAny<CreateBookCommand>())).Returns(new CommandResult<IBook>(book.Object));
+
+            var result = (RedirectToRouteResult)controller.Create(new CreateBookViewModel());
+
+            Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
+            Assert.That(result.RouteValues["controller"], Is.Null);
+            Assert.That(result.RouteValues["id"], Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Create_OnFailedToCreate_ReturnsViewWithErrors()
+        {
+            commandMock.Setup(c => c.Execute(It.IsAny<CreateBookCommand>())).Returns(new CommandResult<IBook>("fel"));
+
+            var result = (ViewResult)controller.Create(new CreateBookViewModel());
+
+            Assert.That(result.ViewName, Is.EqualTo(""));
+            Assert.That(controller.ModelState.First().Value.Errors[0].ErrorMessage, Is.EqualTo("fel"));
+        }
+
+        [Test]
+        public void Index_Always_ReturnsIndexView()
+        {
+            var result = (ViewResult)controller.Index(1);
+
+            Assert.That(result.ViewName, Is.EqualTo(""));
+        }
+
+        //[Test]
+        //public void Index_Always_ReturnsHomeViewModel()
+        //{
+        //    var model = new BookViewModel(Mock.Of<IBook>());
+        //    storeMock.Setup(s => s.Execute(It.IsAny<BookQuery>())).Returns(model);
+
+        //    var result = (ViewResult)controller.Index(1);
+
+        //    Assert.That(result.Model, Is.SameAs(model));
+        //}     
     }
 }

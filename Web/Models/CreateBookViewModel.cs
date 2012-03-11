@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Core.Books;
 
 namespace Web.Models
 {
-    public class CreateBookViewModel
+    public class CreateBookViewModel : CreateBookMessage
     {
         public int LibraryId { get; set; }
 
