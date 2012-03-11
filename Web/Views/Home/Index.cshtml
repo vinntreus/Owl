@@ -4,25 +4,34 @@
     ViewBag.Title = "Owl - Home";
 }
 
-<h1>Home</h1>
+<div class="hero-unit">
 
- @Html.ActionLink("Users", "Index", "Users", null, new { @class="btn-primary" })
- @Html.ActionLink("Create library", "Create", "Library", null, new { @class="btn-primary" })
-<h2>Libraries</h2>
-<ul>
-@foreach (var library in Model.Libraries) {
-    <li>
-        @Html.ActionLink(library.Name, "Index", "Library", new { id = library.Id }, null)
-    </li>
-}
-</ul>
+<h1>Online virtual library</h1>
+ <p>Welcome to a community of books.</p>
+ <p>@Html.ActionLink("Create library", "Create", "Library", null, new { @class="btn btn-large btn-primary" })</p>
+</div>
 
-<h2>Activities</h2>
-<ul>
-@foreach (var activity in Model.Activities) {
-    <li>
-        <span class="date">@activity.Date</span>
-        <span class="text">@activity.Text</span>
-    </li>
-}
-</ul>
+<div class="row">
+    <div class="span6">
+        <h2>Libraries</h2>
+        <ul class="list">
+        @foreach (var library in Model.Libraries) {
+            <li>
+                @Html.ActionLink(library.Name, "Index", "Library", new { id = library.Id }, null)
+            </li>
+        }
+        </ul>
+    </div>
+
+    <div class="span6">
+        <h2>Activities</h2>
+        <ul class="list">
+        @foreach (var activity in Model.Activities) {
+            <li>
+                <span class="date">@activity.Date</span>
+                <span class="text">@activity.Text</span>
+            </li>
+        }
+        </ul>
+    </div>
+</div>

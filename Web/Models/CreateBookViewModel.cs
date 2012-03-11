@@ -7,7 +7,7 @@ using Core.Books;
 
 namespace Web.Models
 {
-    public class CreateBookViewModel : CreateBookMessage
+    public class CreateBookViewModel : ICreateBookMessage
     {
         public int LibraryId { get; set; }
 

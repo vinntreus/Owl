@@ -52,6 +52,7 @@
     <Compile Include="Activities\CreatedLibraryActivity.cs" />
     <Compile Include="Activities\CreatedSessionActivity.cs" />
     <Compile Include="Activities\CreatedUserActivity.cs" />
+    <Compile Include="Books\Book.cs" />
     <Compile Include="Books\CreateBookCommand.cs" />
     <Compile Include="Books\IBook.cs" />
     <Compile Include="Command.cs" />

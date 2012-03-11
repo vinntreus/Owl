@@ -148,6 +148,8 @@
     <Compile Include="Store.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Images\background-bg.png" />
+    <Content Include="Assets\Styles\bootstrap.css" />
     <Content Include="Assets\Styles\site.css" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">
@@ -191,9 +193,7 @@
   <ItemGroup>
     <Content Include="Views\Library\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\Scripts\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Views\Book\Create.cshtml" />
   </ItemGroup>

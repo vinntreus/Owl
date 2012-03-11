@@ -4,8 +4,11 @@
     ViewBag.Title = "Owl - Login";
 }
 
-<h1>Enter your credentials to login</h1>
-@Html.ValidationSummary()
+<div class="page-header">
+    <h1>Login to Owl</h1>
+</div>
+
+@Html.ValidationSummary("", new { @class="alert alert-error" })
 
 @using (Html.BeginForm())
 {
@@ -15,7 +18,7 @@
   @Html.LabelFor(m => m.Password)
   @Html.PasswordFor(m => m.Password)
 
-  <input type="submit" value="Login"/>
+  <input class="btn btn-primary" type="submit" value="Login"/>
 }
 
 <h3>Don't have an account? @Html.ActionLink("Create", "Create", "Users") one now!</h3>

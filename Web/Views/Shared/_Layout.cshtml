@@ -2,14 +2,30 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link type="text/css" rel="stylesheet" href="~/Assets/Styles/bootstrap.css" />
     <link type="text/css" rel="stylesheet" href="~/Assets/Styles/site.css" />
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    @if(User.Identity.IsAuthenticated){
-        @Html.ActionLink("Logout", "Destroy", "Session")
-    }
-    @RenderBody()
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          @Html.ActionLink("Owl", "Index", "Home", null, new { @class = "brand" })
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
+              <li>@Html.ActionLink("Users", "Index", "Users")</li>              
+            </ul>
+            @if(User.Identity.IsAuthenticated){
+              <p class="navbar-text pull-right">Logged in as @User.Identity.Name @Html.ActionLink("Logout", "Destroy", "Session")</p>                
+            }            
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+   <div class="container">
+     @RenderBody()
+   </div>    
 </body>
 </html>

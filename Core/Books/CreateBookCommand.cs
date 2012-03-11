@@ -5,16 +5,16 @@ using System.Text;
 
 namespace Core.Books
 {
-    public interface CreateBookMessage
+    public interface ICreateBookMessage
     {
         string Title { get; }
     }
 
     public class CreateBookCommand : Command<IBook>
     {
-        private CreateBookMessage message;
+        private ICreateBookMessage message;
 
-        public CreateBookCommand(CreateBookMessage message)
+        public CreateBookCommand(ICreateBookMessage message)
         {
             this.message = message;
         }

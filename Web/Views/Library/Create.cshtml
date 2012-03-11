@@ -2,18 +2,16 @@
 @{
     ViewBag.Title = "Owl - Create library";
 }
-<ul class="breadcrumb">
-    <li>@Html.ActionLink("Home", "Index", "Home", null, null)</li>
-</ul>
+<div class="page-header">
+    <h1>Create library</h1>
+</div>
 
-<h1>Create library</h1>
-
-@Html.ValidationSummary()
+@Html.ValidationSummary("", new { @class="alert alert-error" })
 
 @using (Html.BeginForm())
 {
   @Html.LabelFor(m => m.Name)
   @Html.EditorFor(m => m.Name)
 
-  <input type="submit" value="Create"/>
+  <input class="btn btn-primary" type="submit" value="Create"/>
 }

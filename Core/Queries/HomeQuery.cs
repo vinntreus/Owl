@@ -23,6 +23,7 @@ namespace Core.Queries
 
             var activities = session.Query<Activity>()
                                     .OrderByDescending(a => a.Date)
+                                    .Take(10)
                                     .ToList()
                                     .Select(a => new ActivityViewModel(a.Date.ToDateString(), a.Text));            
 

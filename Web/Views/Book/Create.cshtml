@@ -5,13 +5,15 @@
 }
 
 <ul class="breadcrumb">
-    <li>@Html.ActionLink("Home", "Index", "Home", null, null)</li>
-    <li>@Html.ActionLink("Library", "Index", "Library", new { id = Model.LibraryId }, null)</li>
+    <li>@Html.ActionLink("Home", "Index", "Home", null, null)<span class="divider"> /</span></li>
+    <li>@Html.ActionLink("Library", "Index", "Library", new { id = Model.LibraryId }, null)<span class="divider"> /</span></li>
+    <li class="active">Add book</li>
 </ul>
+<div class="page-header">
+    <h1>Add book</h1>
+</div>
 
-<h1>Add book</h1>
-
-@Html.ValidationSummary()
+@Html.ValidationSummary("", new { @class="alert alert-error" })
 
 @using (Html.BeginForm())
 {
@@ -35,5 +37,5 @@
   @Html.LabelFor(m => m.CoverSource)
   @Html.EditorFor(m => m.CoverSource)
 
-  <input type="submit" value="Create"/>
+  <input class="btn btn-primary" type="submit" value="Create"/>
 }
