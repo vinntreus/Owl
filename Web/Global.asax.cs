@@ -2,6 +2,7 @@
 using System.Web.Routing;
 using Core;
 using Core.Activities;
+using Core.Books;
 using Core.Libraries;
 using Core.Sessions;
 using Core.Users;
@@ -53,6 +54,7 @@ namespace Web
             ioc.Register<IHandle<CreatedSession>, CreatedSessionActivity>();
             ioc.Register<IHandle<CreatedUser>, CreatedUserActivity>();
             ioc.Register<IHandle<CreatedLibrary>, CreatedLibraryActivity>();
+            ioc.Register<IHandle<CreatedBook>, CreatedBookActivity>();
         }
     }
 }

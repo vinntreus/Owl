@@ -10,5 +10,13 @@
     </h1>
 </div>
 
+<h2>Books</h2>
+<ul class="list">
+    @foreach (var book in Model.Library.Books)
+    {
+        <li>@Html.ActionLink(book.Title, "Index", "Book", new { id = book.Id, fromLibrary = Model.Library.Id }, null)</li>
+    }
+</ul>
+
 <p>Created by: @Model.Library.Creator.Username</p>
 <p>Created: @Model.Library.Created</p>

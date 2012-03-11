@@ -5,6 +5,8 @@ using System.Text;
 using System.Web.Mvc;
 using Core;
 using Core.Books;
+using Core.Libraries;
+using Core.Queries;
 using Moq;
 using NUnit.Framework;
 using Web.Controllers;
@@ -17,12 +19,14 @@ namespace UnitTests.Web.Controllers
     {
         private BookController controller;
         private Mock<ICommandExecutor> commandMock;
+        private Mock<IStore> storeMock;
 
         [SetUp]
         public void Setup()
         {
             commandMock = new Mock<ICommandExecutor>();
-            controller = new BookController(commandMock.Object);
+            storeMock = new Mock<IStore>();
+            controller = new BookController(commandMock.Object, storeMock.Object);
         }
 
         [Test]
@@ -97,20 +101,20 @@ namespace UnitTests.Web.Controllers
         [Test]
         public void Index_Always_ReturnsIndexView()
         {
-            var result = (ViewResult)controller.Index(1);
+            var result = (ViewResult)controller.Index(1, 2);
 
             Assert.That(result.ViewName, Is.EqualTo(""));
         }
 
-        //[Test]
-        //public void Index_Always_ReturnsHomeViewModel()
-        //{
-        //    var model = new BookViewModel(Mock.Of<IBook>());
-        //    storeMock.Setup(s => s.Execute(It.IsAny<BookQuery>())).Returns(model);
+        [Test]
+        public void Index_Always_ReturnsHomeViewModel()
+        {
+            var model = new BookViewModel(Mock.Of<IBook>(), Mock.Of<ILibrary>());
+            storeMock.Setup(s => s.Execute(It.IsAny<BookQuery>())).Returns(model);
 
-        //    var result = (ViewResult)controller.Index(1);
+            var result = (ViewResult)controller.Index(1, 2);
 
-        //    Assert.That(result.Model, Is.SameAs(model));
-        //}     
+            Assert.That(result.Model, Is.SameAs(model));
+        }     
     }
 }

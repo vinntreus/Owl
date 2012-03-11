@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Activities\Activity.cs" />
     <Compile Include="Activities\ActivityHandler.cs" />
+    <Compile Include="Activities\CreatedBookActivity.cs" />
     <Compile Include="Activities\CreatedLibraryActivity.cs" />
     <Compile Include="Activities\CreatedSessionActivity.cs" />
     <Compile Include="Activities\CreatedUserActivity.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Books\IBook.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="CommandResult.cs" />
+    <Compile Include="Queries\BookQuery.cs" />
     <Compile Include="Users\CurrentUser.cs" />
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="DomainEvents.cs" />

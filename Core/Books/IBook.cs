@@ -9,5 +9,10 @@ namespace Core.Books
     {
         int Id { get; }
         string Title { get; }
+        string Description { get; }
+        string Author { get; }
+        string[] Tags { get; }
+        string CoverSource { get; }
+        string GetPublishedDate();
     }
 }

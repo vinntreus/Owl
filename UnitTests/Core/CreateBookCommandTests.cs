@@ -85,6 +85,12 @@ namespace UnitTests.Core
         private class CreateBookMessage : ICreateBookMessage
         {
             public string Title { get; set; }
+            public int LibraryId { get; set; }
+            public string Description { get; set; }
+            public string Author { get; set; }
+            public DateTime? Published { get; set; }
+            public string Tags { get; set; }
+            public string CoverSource { get; set; }
         }
     }
 }

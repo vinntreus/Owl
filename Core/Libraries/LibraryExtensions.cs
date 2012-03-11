@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Core.Books;
 using Core.Users;
 
 namespace Core.Libraries
@@ -15,7 +16,8 @@ namespace Core.Libraries
                 Id = library.Id,
                 Name = library.Name,
                 Creator = library.Creator,
-                Created = library.Created.ToDateString()
+                Created = library.Created.ToDateString(),
+                Books = library.Books
             };
         }
 
@@ -25,6 +27,7 @@ namespace Core.Libraries
             public string Name { get; set; }
             public IUser Creator { get; set; }
             public string Created { get; set; }
+            public IEnumerable<IBook> Books { get; set; }
         }
     }
 }

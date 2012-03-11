@@ -193,7 +193,9 @@
   <ItemGroup>
     <Content Include="Views\Library\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Views\Book\Index.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Book\Create.cshtml" />
   </ItemGroup>

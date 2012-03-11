@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using Core;
 using Core.Books;
+using Core.Queries;
 using Web.Models;
 
 namespace Web.Controllers
@@ -9,15 +10,17 @@ namespace Web.Controllers
     public class BookController : Controller
     {
         private ICommandExecutor commandExecutor;
+        private IStore store;        
 
-        public BookController(ICommandExecutor commandExecutor)
+        public BookController(ICommandExecutor commandExecutor, IStore store)
         {
             this.commandExecutor = commandExecutor;
+            this.store = store;
         }
         
-        public ViewResult Index(int id)
+        public ViewResult Index(int id, int fromLibrary)
         {
-            return View();
+            return View(store.Execute(new BookQuery(id, fromLibrary)));
         }
 
 

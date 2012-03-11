@@ -1,0 +1,38 @@
+﻿@model Core.Queries.BookViewModel
+
+@{
+    ViewBag.Title = "Owl - Book";
+}
+
+<ul class="breadcrumb">
+    <li>@Html.ActionLink("Home", "Index", "Home", null, null)<span class="divider"> /</span></li>
+    <li>@Html.ActionLink(@Model.Library.Name, "Index", "Library", new { id = Model.Library.Id }, null)<span class="divider"> /</span></li>
+    <li class="active">@Model.Book.Title</li>
+</ul>
+
+<div class="page-header">
+    <h1>@Model.Book.Title</h1>
+</div>
+
+<div class="row">
+    <div class="span4">
+        <img src="@Model.Book.CoverSource" />
+    </div>
+
+    <div class="span8">
+        <p>
+            <label>Description</label>
+            @Model.Book.Description
+        </p>
+
+        <p>
+            <label>Author</label>
+            @Model.Book.Author
+        </p>
+
+        <p>
+            <label>Published</label>
+            @Model.Book.GetPublishedDate()
+        </p>
+    </div>
+</div>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Core.Books;
 using Core.Users;
 
 namespace Core.Libraries
@@ -12,6 +13,7 @@ namespace Core.Libraries
         string Name { get; }
         IUser Creator { get; }
         string Created { get; }
+        IEnumerable<IBook> Books { get; }
     }
 
     public interface ICreateLibraryMessage
