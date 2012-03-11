@@ -76,9 +76,8 @@ namespace UnitTests.Web.Controllers
         [Test]
         public void Create_OnCreated_RedirectToCreatedBookViewPage()
         {
-            var book = new Mock<Book>();
-            book.Setup(l => l.Id).Returns(1);
-            commandMock.Setup(c => c.Execute(It.IsAny<CreateBookCommand>())).Returns(new CommandResult<CreatedBook>(new CreatedBook(book.Object, Mock.Of<Library>())));
+            var book = new Book { Id = 1 };
+            commandMock.Setup(c => c.Execute(It.IsAny<CreateBookCommand>())).Returns(new CommandResult<CreatedBook>(new CreatedBook(book, Mock.Of<Library>())));
 
             var result = (RedirectToRouteResult)controller.Create(new CreateBookViewModel());
 
